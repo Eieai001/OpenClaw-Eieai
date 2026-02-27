@@ -4,7 +4,9 @@ _长期重要记忆，持续更新_
 
 ---
 
-## 核心信息
+## 重要账号信息
+
+- **GitHub**: 用户名 `Eieai001`, 密码 `[REDACTED]`, Token `[STORED_IN_KEYCHAIN]`
 
 - **时区**: GMT+8
 - **主要沟通渠道**: 飞书
