@@ -1,0 +1,80 @@
+; OpenClaw Agent 沙盒配置文件 (简化版)
+; 经过测试验证，兼容 macOS sandbox-exec
+
+(version 1)
+
+; ==================== 文件系统限制 ====================
+
+; 允许默认文件操作
+(allow default)
+
+; 核心限制：禁止写入用户目录
+(deny file-write* (subpath "/Users"))
+(deny file-write* (subpath "~/"))
+(deny file-write* (regex "^/Users/[^/]+"))
+
+; 允许写入临时工作目录
+(allow file-write* (subpath "/tmp/openclaw-agents"))
+(allow file-read* (subpath "/tmp/openclaw-agents"))
+(allow file-write* (subpath "/private/tmp/openclaw-agents"))
+(allow file-read* (subpath "/private/tmp/openclaw-agents"))
+
+; 允许系统路径读取
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr"))
+(allow file-read* (subpath "/bin"))
+(allow file-read* (subpath "/sbin"))
+(allow file-read* (subpath "/private/var"))
+(allow file-read* (subpath "/Library"))
+(allow file-read* (subpath "/dev"))
+
+; 允许 Node.js 相关路径读取
+(allow file-read* (subpath "/usr/local/lib/node_modules"))
+(allow file-read* (subpath "/opt/homebrew/lib/node_modules"))
+(allow file-read* (subpath "/Users/eieai/.nvm"))
+(allow file-read* (subpath "/Users/eieai/.npm"))
+
+; ==================== 网络限制 ====================
+
+; 默认禁止网络（可根据需要启用）
+(deny network*)
+
+; 允许本地 IPC (Node.js 使用 Unix socket，无需 network 权限)
+; 如果需要外部网络，在下面添加：
+; (allow network-outbound (remote ip "api.openai.com"))
+
+; ==================== 进程限制 ====================
+
+; 允许执行系统命令
+(allow process-exec (subpath "/bin"))
+(allow process-exec (subpath "/usr/bin"))
+(allow process-exec (subpath "/usr/sbin"))
+(allow process-exec (subpath "/sbin"))
+(allow process-exec (subpath "/usr/local/bin"))
+
+; ==================== Mach 服务 ====================
+
+; 允许 Node.js 所需的系统服务
+(allow mach-lookup (global-name "com.apple.bsd.dirhelper"))
+(allow mach-lookup (global-name "com.apple.coreservices.launchd"))
+(allow mach-lookup (global-name "com.apple.coreservices.launchservicesd"))
+(allow mach-lookup (global-name "com.apple.securityd"))
+(allow mach-lookup (global-name "com.apple.system.opendirectoryd.api"))
+(allow mach-lookup (global-name "com.apple.system.logger"))
+(allow mach-lookup (global-name "com.apple.analyticsd"))
+(allow mach-lookup (global-name "com.apple.tccd"))
+(allow mach-lookup (global-name "com.apple.usymptomsd"))
+(allow mach-lookup (global-name "com.apple.diagnosticd"))
+
+; ==================== 其他限制 ====================
+
+; 禁止系统特权操作
+(deny system-kext-load)
+(deny system-privilege)
+
+; 允许信号（自进程）
+(allow signal (target self))
+(deny signal (target others))
+
+; 允许系统信息获取
+(allow system-info)

@@ -1,0 +1,14 @@
+# E1 Agent 配置文件
+# 角色: 程序员 / 开发助手
+
+agentId: e1
+name: E1 Agent
+role: programmer
+
+channels:
+  - feishu
+
+status: active
+
+created_at: 2026-02-27
+last_updated: 2026-02-27T09:51:00+08:00

@@ -1,0 +1,21 @@
+{
+  "name": "openclaw-multiagent",
+  "version": "1.0.0",
+  "description": "OpenClaw 多Agent分层响应架构 - 智能任务分流 + 沙盒安全执行",
+  "main": "index.js",
+  "scripts": {
+    "test": "node example.js"
+  },
+  "keywords": [
+    "openclaw",
+    "multi-agent",
+    "task-dispatcher",
+    "sandbox",
+    "ai",
+    "agent"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "peerDependencies": {}
+}
